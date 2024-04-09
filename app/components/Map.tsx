@@ -6,8 +6,8 @@ import { useCountries } from '../lib/getCountries';
 import {icon } from 'leaflet';
 
 const Icon = icon({
-    iconUrl:'https://cdn-icons-png.flaticon.com/512/25/25613.png',
-    iconSize:[50,50],
+    iconUrl:'https://png.pngtree.com/png-clipart/20230805/original/pngtree-map-marker-flat-red-color-icon-ui-position-placement-vector-picture-image_9756810.png',
+    iconSize:[30,30],
 
 })
 

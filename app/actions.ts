@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { supabase } from "./lib/superbase";
+import { revalidatePath } from "next/cache";
 
 export async function createairbnbhome({userId}:{userId:string}){
     const data = await prisma.home.findFirst({
@@ -112,4 +113,36 @@ export default async function createAddress(formData: FormData){
         }
     });
     return redirect('/');
+}
+
+export async function addToFavourite(fromData: FormData){
+    const homeId = fromData.get('homeId') as string;
+    const userId = fromData.get('userId') as string;
+    const pathName = fromData.get('pathName') as string;
+    const data = await prisma.favourite.create({
+        data:{
+            homeId: homeId,
+            userId: userId,
+            //the remaining info can be curated from the homeId
+        }
+    });
+
+    //We need to add revalidate path so it does it properly from catch
+    revalidatePath(pathName);
+    //as we can be any where we get the path
+    return redirect('/');
+}
+
+
+export async function deleteFromFavourite(formData: FormData){
+    const favouriteId = formData.get('favouriteId') as string;
+    const pathName = formData.get('pathName') as string;
+    const userId = formData.get('userId') as string;
+    await prisma.favourite.delete({
+        where:{
+            id: favouriteId,
+            userId: userId,
+        }
+    });
+    revalidatePath(pathName);
 }

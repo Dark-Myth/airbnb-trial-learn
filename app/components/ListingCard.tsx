@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCountries } from "../lib/getCountries";
+import { addToFavourite, deleteFromFavourite } from "../actions";
+import { AddToFavouriteButton, DeleteFromFavouriteButton } from "./SubmitButtons";
+
+
+//Note AddToFavouriteButton and DeleteFromFavouriteButton are components
+
+//Note addToFavourite and deleteFromFavourite are functions that work on the database
+
 
 //interface App
 interface AppProps{
@@ -8,8 +16,23 @@ interface AppProps{
     description: string;
     location: string;
     price: number;
+    userId: string| undefined;
+    isInFavourites?: boolean;
+    favouriteId?: string;
+    homeId: string;
+    pathName: string;
 }
-export function ListingCard({description,imagePath,location,price}:AppProps){
+export function ListingCard({
+    description,
+    imagePath,
+    location,
+    price,
+    userId,
+    isInFavourites,
+    favouriteId,
+    homeId,
+    pathName
+}:AppProps){
     const {getCountryByValue} = useCountries();
     const country = getCountryByValue(location);
     return(
@@ -22,6 +45,22 @@ export function ListingCard({description,imagePath,location,price}:AppProps){
                     //alternative for f or w
                     className="rounded-lg h-full object-cover"
                 />
+                {userId && (
+                    <div className="z-10 absolute top-2 right-2">
+                        {isInFavourites ? 
+                        (<form action={deleteFromFavourite}>
+                            <input type="hidden" name="favouriteId" value={favouriteId}/>
+                            <input type="hidden" name="userId" value={userId}/>
+                            <input type="hidden" name="pathName" value={pathName}/>
+                            <DeleteFromFavouriteButton/>
+                        </form>):(<form action={addToFavourite}>
+                            <input type="hidden" name="homeId" value={homeId}/>
+                            <input type="hidden" name="userId" value={userId}/>
+                            <input type="hidden" name="pathName" value={pathName}/>
+                            <AddToFavouriteButton/>
+                        </form>)}
+                    </div>
+                )}
             </div>
             <Link href={"/"} className="mt-2">
                 <h3 className="font-medium text-base">

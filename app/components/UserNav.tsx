@@ -38,6 +38,7 @@ export async function UserNav () {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="/my-home" className="w-full">
+                  {/* the above is the linker 🤦‍♂️ almost forgot */}
                   My Listings
                 </Link>
               </DropdownMenuItem>

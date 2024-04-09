@@ -4,8 +4,11 @@ import MapFilterItems from "./components/MapFilterItems";
 import prisma from "./lib/db";
 import { Skeletioncard } from "@/app/components/SeletionCard";
 import { NoItems } from "./components/NoItems";
-//to fetch out data we would use standard async function
-async function getData({searchParams}:{searchParams?:{
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+//to fetch out data we would use standard async function { so we basically get our data from the database and pass it to the component}
+async function getData({searchParams,userId}:{
+  userId: string | undefined,
+  searchParams?:{
   filter?:string;
 }}) {
   const data = await prisma.home.findMany({
@@ -22,6 +25,12 @@ async function getData({searchParams}:{searchParams?:{
       description:true,
       country:true,
       price:true,
+      favourite:{
+        where:{
+          userId:userId ?? undefined
+          //If we basically don't have a user id we would ignore the favourite
+        }
+      }
     }
   });
   return data;
@@ -49,13 +58,15 @@ export default function Home({searchParams}:{searchParams?:{
 async function ShowItems({searchParams}:{searchParams?:{
   filter?:string;
 }}){
-  const data = await getData({searchParams:searchParams});
+  const {getUser} = getKindeServerSession();
+  const user = await getUser();
+  const data = await getData({searchParams:searchParams,userId:user?.id});
 
   return(
       <>
       {/* If there is items to display or not */}
       {data.length === 0 ? (
-        <NoItems/>
+        <NoItems title="Sorry no Listings found for this category found..." description="Please check another category or create your own listing!" />
       ):(
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 mt-8 gap-8">
         {data.map((item) => (
@@ -65,6 +76,12 @@ async function ShowItems({searchParams}:{searchParams?:{
             imagePath={item.photo as string}
             location={item.country as string}
             price={item.price as number}
+            userId={user?.id}
+            favouriteId={item.favourite[0]?.id}
+            homeId={item.id}
+            pathName="/"
+            //index since we want to revalidate the path name
+            isInFavourites={item.favourite.length > 0? true:false} //since true =1 if greater means true
           />
         ))}
       </div>
