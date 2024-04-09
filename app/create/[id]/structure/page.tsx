@@ -1,5 +1,6 @@
 
 import { createCategoryPage } from "@/app/actions";
+import { CreationBottomBar } from "@/app/components/CreationBottomBar";
 import { SelectCategory } from "@/app/components/SelectedCategory";
 import { CreationSubmit } from "@/app/components/SubmitButtons";
 import { Button } from "@/components/ui/button";
@@ -24,8 +25,9 @@ export default function StrucutreRoute({ params }: { params: { id: string } }) {
               <Link href="/">Cancel</Link>
             </Button>
             <CreationSubmit/>
-
+            
           </div>
+          <CreationBottomBar/>
         </div>
       </form>
     </>
