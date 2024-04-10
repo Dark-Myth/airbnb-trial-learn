@@ -2,9 +2,11 @@ import { Suspense } from "react";
 import { ListingCard } from "./components/ListingCard";
 import MapFilterItems from "./components/MapFilterItems";
 import prisma from "./lib/db";
-import { Skeletioncard } from "@/app/components/SeletionCard";
+import { Skeletoncard } from "@/app/components/SeletonCard";
 import { NoItems } from "./components/NoItems";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
+import { unstable_noStore as noStore} from "next/cache";
 //to fetch out data we would use standard async function { so we basically get our data from the database and pass it to the component}
 async function getData({searchParams,userId}:{
   userId: string | undefined,
@@ -15,6 +17,7 @@ async function getData({searchParams,userId}:{
   rooms?:string;
   bathrooms?:string;
 }}) {
+  noStore();
   const data = await prisma.home.findMany({
     where:{
       addedCategory: true,
@@ -109,15 +112,14 @@ async function ShowItems({searchParams}:{searchParams?:{
 function SkeletonLoading(){
   return(
     <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 mt-8 gap-8">
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
-      <Skeletioncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
+      <Skeletoncard/>
     </div>
   )
 }
