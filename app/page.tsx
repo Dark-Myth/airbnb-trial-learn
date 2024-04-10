@@ -10,6 +10,10 @@ async function getData({searchParams,userId}:{
   userId: string | undefined,
   searchParams?:{
   filter?:string;
+  country?:string;
+  guests?:string;
+  rooms?:string;
+  bathrooms?:string;
 }}) {
   const data = await prisma.home.findMany({
     where:{
@@ -18,6 +22,10 @@ async function getData({searchParams,userId}:{
       addedDescription:true,
       categoryName:searchParams?.filter ?? undefined,
       // the undefined is used to check if the filter is not present, prisma will ignore if this is undefined
+      country:searchParams?.country ?? undefined,
+      guests:searchParams?.guests ?? undefined,
+      bedrooms:searchParams?.rooms ?? undefined,
+      bathrooms:searchParams?.bathrooms ?? undefined,
     },
     select:{
       photo:true,
@@ -40,6 +48,10 @@ async function getData({searchParams,userId}:{
 
 export default function Home({searchParams}:{searchParams?:{
   filter?:string;
+  country?:string;
+  guests?:string;
+  rooms?:string;
+  bathrooms?:string;
 }}) {
   return (
     <div className="container mx-auto px-5 lg:px-10">
@@ -57,6 +69,10 @@ export default function Home({searchParams}:{searchParams?:{
 
 async function ShowItems({searchParams}:{searchParams?:{
   filter?:string;
+  country?:string;
+  guests?:string;
+  rooms?:string;
+  bathrooms?:string;
 }}){
   const {getUser} = getKindeServerSession();
   const user = await getUser();

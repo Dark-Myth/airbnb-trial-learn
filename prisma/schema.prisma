@@ -18,6 +18,7 @@ model User{
   profileImage String? //optional
   Home Home[]
   favourite Favourite[]
+  reservation Reservation[]
 }
 
 
@@ -35,6 +36,7 @@ model Home{
   price Int?
   categoryName String?
   favourite Favourite[] 
+  reservation Reservation[]
 
   addedCategory Boolean @default(false)
   addedDescription Boolean @default(false)
@@ -59,3 +61,15 @@ model Favourite{
 // User can have many favourites, but each favourite can can have only one user{basiclly if i set it to favourite it will be favourite for that user only, only other set it they can see it for themself} 
 
 //Home can have many favourites, but each favourite can have only one home{basiclly if i set it to favourite it will be favourite for that home only, only other set it they can see it for themself}
+
+model Reservation{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  startDate DateTime
+  endDate DateTime
+  homeId String?
+  Home Home? @relation(fields: [homeId], references: [id])
+  userId String?
+  User User? @relation(fields: [userId], references: [id])  
+  // to add features later on it seems but I'm not sure
+}
