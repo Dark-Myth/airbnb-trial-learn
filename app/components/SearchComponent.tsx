@@ -12,7 +12,7 @@ import { CreationSubmit } from "./SubmitButtons";
 import { Counter } from "./Counter";
 import { Card, CardHeader } from "@/components/ui/card";
 
-export function SearchModelCOmponent(){
+export function SearchModelComponent(){
 
     const [step, setStep] = useState(1);
     const {getAllCountries} = useCountries();//we get them from useCountries hook which we made
@@ -35,13 +35,14 @@ export function SearchModelCOmponent(){
     return(
         <Dialog>
             <DialogTrigger asChild>
-                <div className="rounded-full py-2 px-5 border flex flex-items cursor-pointer">
+            <div className="rounded-full py-2 px-5 border  flex-items cursor-pointer hidden sm:block">
                     <div className="flex h-full divide-x font-medium pt-1">
                     <p className="px-4">Anywhere</p>
                     <p className="px-4">Any Week</p>
                     <p className="px-4">Any Guests</p>
-                    </div>
                     <Search className="bg-primary text-white p-1 h-8 w-8 rounded-full"/>
+                    </div>
+                    
                 </div>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[420px] ">
