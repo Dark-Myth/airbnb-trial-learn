@@ -39,7 +39,7 @@ export function ListingCard({
         <div className="flex flex-col">
             <div className="relative h-72">
                 <Image
-                    src={`https://xbupertldxhrpbcurnei.supabase.co/storage/v1/object/public/images/${imagePath}`}
+                    src={`https://xbupertldxhrpbcurnei.supabase.co/storage/v1/object/public/images/${imagePath}`} //This should be given the correct path to the image from the database, the above is a sample
                     alt="Image of House"
                     fill 
                     //alternative for f or w
