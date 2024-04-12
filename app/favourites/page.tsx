@@ -3,10 +3,12 @@ import prisma from "../lib/db";
 import { redirect } from "next/navigation";
 import { NoItems } from "../components/NoItems";
 import { ListingCard } from "../components/ListingCard";
+import { unstable_noStore as noStore} from "next/cache";
 //this is a server side function
 
 //since we are getting all the user favourites, we need to create a get request
 async function getData(userId:string){
+    noStore();
     const data = await prisma.favourite.findMany({
         where:{
             userId: userId,

@@ -3,9 +3,11 @@ import prisma from "../lib/db";
 import { redirect } from "next/navigation";
 import { NoItems } from "../components/NoItems";
 import { ListingCard } from "../components/ListingCard";
+import { unstable_noStore as noStore} from "next/cache";
 
 //For all these page.tsx we need to use export default function
 async function getData(userId: string) {
+  noStore();
     const data = await prisma.home.findMany({
       where: {
         userId: userId,
