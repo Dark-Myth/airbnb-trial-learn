@@ -76,7 +76,7 @@ export default async function HomeRoute({
                 {/* fill property can only be used if it is under a div and that div has a relative property */}
             </div>
             {/* Essentail Info */}
-            <div className="flex sm:justify-between max-sm:flex-col gap-x-24 mt-8">
+            <div className="flex justify-between max-sm:flex-col gap-x-24 mt-8">
                 <div className="sm:w-3/4 mx-2">
                     <h3 className="text-xl font-medium">{country?.flag}  {country?.label}/{country?.region}</h3>
                     <div className="flex gap-x-2 text-muted-foreground">
@@ -107,10 +107,12 @@ export default async function HomeRoute({
 
                     <HomeMap locationValue={country?.value as string}/>
                 </div>
-                <form action={createReservation}>
+                <form action={createReservation} className="max-sm:pt-10">
                     <input type="hidden" name="homeId" value={params.id}/>
                     <input type="hidden" name="userId" value={user?.id}/>
+                    <div className="max-sm:ml-[-4%]">
                     <SelectCalender reservation={data?.reservation}/>
+                    </div>
                     {user?.id ? <ReservationSubmitButton/> :
                     <Button className="w-full" asChild>
                         <Link href="/api/auth/login">Make a Reservation</Link>

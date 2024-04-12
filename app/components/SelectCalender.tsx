@@ -52,6 +52,7 @@ export function SelectCalender({
                 minDate={new Date()}
                 direction="vertical"
                 disabledDates={disabledDates}
+                
                 // those we select from the array that is already reserved
             />
         </>
