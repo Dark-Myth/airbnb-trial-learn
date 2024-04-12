@@ -76,7 +76,7 @@ export default async function HomeRoute({
                 {/* fill property can only be used if it is under a div and that div has a relative property */}
             </div>
             {/* Essentail Info */}
-            <div className="flex sm:justify-between flex-col gap-x-24 mt-8">
+            <div className="flex sm:justify-between max-sm:flex-col gap-x-24 mt-8">
                 <div className="sm:w-3/4 mx-2">
                     <h3 className="text-xl font-medium">{country?.flag}  {country?.label}/{country?.region}</h3>
                     <div className="flex gap-x-2 text-muted-foreground">
