@@ -20,8 +20,8 @@ To get started with the project, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/airbnb-clone.git
-    cd airbnb-clone
+    git clone https://github.com/Dark-Myth/airbnb-trial-clone.git
+    cd airbnb-trial-clone
     ```
 
 2. Install dependencies:
@@ -42,5 +42,5 @@ To get started with the project, follow these steps:
 ## Scripts
 - `npm run dev`: Starts the development server.
 - `npm run build`: Builds the project for production.
-- [npm run start](http://_vscodecontentref_/2): Starts the production server.
+- [npm run start](http://_vscodecontentref_/2) : Starts the production server.
 - `npm run lint`: Lints the codebase.
